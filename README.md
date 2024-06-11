@@ -50,3 +50,8 @@ API для распознавания подделки голоса. Это пр
     model.py - включает загрузку и использование ML модели.
 
     model3.ipynb - colab для обучения модели
+
+# Запуск
+В директории приложения нужно прописать:
+    ```uvicorn app:app```
+    ```celery -A celery_task_app.worker worker -l info```
