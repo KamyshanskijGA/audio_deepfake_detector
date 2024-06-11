@@ -15,101 +15,135 @@
 #### 4.1.1 Требования к составу выполняемых функций
 Главной функцией приложения должно быть распознавание и анализ голосовых данных с целью выявления подделки голоса.
 Приложение должно обеспечивать возможность выполнения следующих функций:
+
 ‒	Загрузка аудиофайлов для анализа форматах WAV, FLAC, MP3. 
+
 ‒	Извлечение признаков (MFCC, STFT, RMS и ZCR)
+
 ‒	Взаимодействие с моделью должно происходить с помощью REST API c такими методами:
+
 1. Загрузка аудиофайла для анализа:
     − Метод: POST
+   
     − URL: /detect/predict
+   
     − Вход: аудиофайл  в одном из этих форматов: 'wav', 'mp3', 'flac'
+   
     − Выход:{'task_id': str, 'status': 'Processing'}
 
-2. Получение результата анализа:
+3. Получение результата анализа:
     − Метод: GET
+   
     − URL: /detect/result/{task_id}
+   
     − Вход: task_id: str
+   
     − Выход:
-        - Если задача в процессе: 
+   
+        - Если задача в процессе:
+   
 	Code: 202
+
 {'task_id': str, 'status': 'Processing'}
+
         − Если задача завершена: 
 	Code 200
-{
-'task_id': str, 
-'status': 'Success', 
-'anlisys_result': {
-'probability': float, 
-'predicted_class': str, 
-'metadata': {
-'audio_name': str, 
-'duration': str, 
-'format': str
-}
-}
-}
+ 
+	{
+	'task_id': str, 
+	'status': 'Success', 
+	'anlisys_result': {
+		'probability': float, 
+		'predicted_class': str, 
+		'metadata': {
+			'audio_name': str, 
+			'duration': str, 
+			'format': str
+			}
+		}
+	}
 
 ‒	Вывод результатов анализа : Код ответа(200, если запрос был выполнен успешно, 400 или 500, если во время выполнения запроса возникли ошибки). ID задачи.  результат, указывающий на то, является ли голосовой образец подлинным или поддельным. Вероятность, что результат является верным. Метаданные о голосовом образце, такие как его название, длительность, формат файла.
 Пример:
 Code:200
-{
-'task_id': '52bcea79-8768-45bf-8d03-f22cac5b5970', 
-'status': 'Success', 
-'anlisys_result': {
-'probability': '0.6151131689548492', 
-'predicted_class': 'Fake', 
-'metadata': {
-'audio_name': 'AxL1zdy0ka86b678ace51cacd0309d47ba58af13165V3NIm9W.mp3', 
-'duration': '64.2 seconds', 
-'format': 'MP3'
-}
-}
-}
+	{
+	'task_id': '52bcea79-8768-45bf-8d03-f22cac5b5970', 
+	'status': 'Success', 
+	'anlisys_result': {
+		'probability': '0.6151131689548492', 
+		'predicted_class': 'Fake', 
+		'metadata': {
+			'audio_name': 'AxL1zdy0ka86b678ace51cacd0309d47ba58af13165V3NIm9W.mp3', 
+			'duration': '64.2 seconds', 
+			'format': 'MP3'
+			}
+		}
+	}
 Модель распознавания должна иметь точность больше 70% и время выполнения не более 5 секунд. 
 
 #### 4.1.2 Требования к организации входных данных
 Входные данные для метода распознавания подделки голоса должны представлять собой аудиозаписи голоса в форматах 'wav', 'mp3', 'flac'. 
 Поддержка передачи аудиоданных и получения результата через HTTP запросы:
+
 1. Загрузка аудиофайла для анализа:
+
     − Метод: POST
+   
     − URL: /detect/predict
+   
     − Вход: аудиофайл в одном из этих форматов: 'wav', 'mp3', 'flac'
 
 2. Получение результата анализа:
+
     − Метод: GET
+   
     − URL: /detect/result/{task_id}
+   
     − Вход: task_id: str
 
 
 
 #### 4.1.3 Требования к организации выходных данных
 Выходные данные для методов API:
+
 1. Загрузка аудиофайла для анализа:
+
     − Метод: POST
+   
     − URL: /detect/predict
+   
     − Выход:{'task_id': str, 'status': 'Processing'}
 
 2. Получение результата анализа:
+   
     − Метод: GET
+   
     − URL: /detect/result/{task_id}
+   
     − Выход:
-        - Если задача в процессе: 
+   
+        - Если задача в процессе:
+   
 	Code: 202
-{'task_id': str, 'status': 'Processing'}
+
+	{'task_id': str, 'status': 'Processing'}
+
         − Если задача завершена: 
-	Code 200
-{
-'task_id': str, 
-'status': 'Success', 
-'anlisys_result': {
-'probability': float, 
-'predicted_class': str, 
-'metadata': {
-'audio_name': str, 
-'duration': str, 
-'format': str
-}
-}
-}
+	
+ 	Code 200
+	{
+		'task_id': str, 
+		'status': 'Success', 
+		'anlisys_result': {
+			'probability': float, 
+			'predicted_class': str, 
+			'metadata': {
+				'audio_name': str, 
+				'duration': str, 
+				'format': str
+			}
+		}
+	}
 
 	Код ответа(200, если запрос был выполнен успешно, 400 или 500, если во время выполнения запроса возникли ошибки). 
 	ID задачи.  	
