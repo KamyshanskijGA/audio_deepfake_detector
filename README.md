@@ -54,4 +54,5 @@ API для распознавания подделки голоса. Это пр
 # Запуск
 В директории приложения нужно прописать:
     ```uvicorn app:app```
+    
     ```celery -A celery_task_app.worker worker -l info```
