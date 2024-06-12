@@ -57,3 +57,13 @@ API для распознавания подделки голоса. Это пр
 ```uvicorn app:app```
 
 ```celery -A celery_task_app.worker worker -l info```
+
+<details>
+<summary>Работа приложения</summary>
+
+
+https://github.com/KamyshanskijGA/audio_deepfake_detector/assets/86370005/cc46d581-3907-4008-83b5-5b304179ceb4
+
+
+</details>
+
